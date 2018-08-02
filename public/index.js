@@ -15,9 +15,24 @@ window.onload = function () {
       accessToken: mapboxgl.accessToken
   }));
 
-  // LOAD MAP DATA
-  function buildLocationList(geojson) {
-    console.log(geojson)
+  // LOAD MAP
+  map.on('load', function() {
+    // Retrieve the geoson dataset uploaded in Mapbox Studio
+    const mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
+    mapboxClient.datasets
+      .listFeatures({
+        datasetId: 'cjimhk5ur00o22vp5hmjg8evz'
+      })
+      .send()
+      .then(
+        response => { buildLocationList(response.body.features) },
+        error => console.log(error)
+      )
+  })
+
+  // BUILD SIDEBAR
+  function buildLocationList(features) {
+    console.log(features)
     for (let i=0; i < features.length; i++) {
       const prop = features[i].properties
 
@@ -29,13 +44,10 @@ window.onload = function () {
       link.href = '#'
       link.className = 'store'
       link.dataPosition = i
-      link.innerHTML = prop.address
+      link.innerHTML = prop.name
 
       let details = listing.appendChild(document.createElement('p'))
-      details.innerHTML = prop.city
-      if (prop.phone) {
-        details.innerHTML += ' &middot; ' + prop.phoneFormatted;
-      }
+      details.innerHTML = prop.description
     }
 
     // Add event listener to links for popup, pointer flyer, & listing highlight
@@ -48,20 +60,6 @@ window.onload = function () {
       this.parentNode.classList.add('active')
     })
   }
-
-  map.on('load', function() {
-    // Retrieve the geoson dataset uploaded in Mapbox Studio
-    const mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
-    mapboxClient.datasets
-      .listFeatures({
-        datasetId: 'cjimhk5ur00o22vp5hmjg8evz'
-      })
-      .send()
-      .then(
-        response => { builLocatioList(response.body) },
-        error => console.log(error)
-      )
-  })
 
   // ADD INTERACTION
   function flyToOrg(currentFeature) {

@@ -3,8 +3,33 @@ body {
   padding: 0;
 }
 
+ul {
+
+}
+
+li {
+  list-style: none;
+}
+
+h1 {
+  font-size: 120%;
+}
+
+h2 {
+  font-size: 110%;
+}
+
 #sidebar {
   width: 30%;
+  overflow-wrap: break-word;
+}
+
+#sidebar header {
+  padding: 0 10px;
+}
+
+#sidebar #listings {
+  overflow-y: scroll;
 }
 
 #map {
@@ -19,7 +44,7 @@ body {
 @media only screen
   and (min-device-width: 813px)
   and (max-device-width: 1024px) {
-    #sidebar {
+    #listings {
       width: 40%;
     }
     #map {
@@ -44,4 +69,3 @@ body {
       width: 100%;
     }
 }
-
