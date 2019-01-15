@@ -1,4 +1,4 @@
-# &#x2600; OrangeWheel &#x2600;
+# &#x2600; Orange Wheel &#x2600;
 Locator to search nearby business that gives discounts to SF Bicycle Coalition members.
 
 # Inspiration
